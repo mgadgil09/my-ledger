@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>User Sign Up Form</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light py-0">
+        <a th:href="@{/landing-page}" class="navbar-brand"><small>Home</small></a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navlist-right">
+            <span sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="navbar-brand"><small>Logout</small></a></span>
+        </div>
+    </nav>
+    <form th:action="@{/landing-page}" method="post"
+          style="max-width: 600px; margin:0 auto;">
+        <div class="form-group">
+            <div class="container text-center">
+                <p><h4>Welcome <span th:text="${user.firstName}"></span></h4></p>
+            </div>
+            <hr>
+            <div class="container text-center">
+                <p>This is your Ledger landing page.</p>
+                <p></p>
+                </div>
+                <div class="form-group text-center">
+                <big><a th:href="@{/urja-innovations/urja-home-page}" class="nav-item nav-link active"><small>Urja Innovations</small></a></big>
+                </div>
+        </div>
+    </form>
+</body>
+</html>

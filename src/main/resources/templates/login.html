@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Sign Up Form</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <hr>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light py-0">
+        <a th:href="@{/}" class="navbar-brand"><small>Home</small></a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+<div class = "container text-center">
+    <p></p>
+    <h2>User Login</h2>
+    <p></p>
+    <hr>
+    <p></p>
+    <form th:action="@{/login}" method="post"
+          style="max-width: 600px; margin:0 auto;">
+
+        <!--error message-->
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">Invalid email or password!</div>
+        </div>
+
+        <!--logout message-->
+        <div th:if="${param.logout}">
+            <div class="alert alert-info">You have successfully logged out.</div>
+        </div>
+
+        <div class = "container m-3">
+            <div class="form-group row">
+                <label class="col-form-label col-4">Username </label>
+                <div class="col-8">
+                    <input class="form-control" id="username" name="username" type="text" placeholder="Enter Username" required autofocus="autofocus">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-4">Password</label>
+                <div class="col-8">
+                    <input class="form-control" id="password" name="password"  type="password" placeholder="Enter Password" required autofocus="autofocus">
+                </div>
+            </div>
+            <div class="form-group row"></div>
+            <div class="form-group row">
+                <div class="col-12">
+                    <button type="submit" name="submit" id="submit" class="btn btn-primary">Login</button>
+                    <span><small>   New user? <a href="/" th:href="@{/sign-up}"> Sign up here</a></small> </span>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

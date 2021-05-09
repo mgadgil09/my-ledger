@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <a th:href="@{/landing-page}" class="navbar-brand"><small>Home</small></a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a th:href="@{/urja-innovations/account-balance}" class="nav-item nav-link">AccountBalance</a>
+                <a th:href="@{/urja-innovations/submit-purchase}" class="nav-item nav-link">PurchaseEntry</a>
+                <a th:href="@{/urja-innovations/submit-payment}" class="nav-item nav-link active">Payment Entry</a>
+            </div>
+        </div>
+        <div class="navlist-right">
+            <span sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="navbar-brand"><small>Logout</small></a></span>
+        </div>
+    </nav>
+    <div class="container text-center">
+        <div>
+            <p></p>
+            <h2>Make a Payment Entry</h2>
+            <p></p>
+        </div>
+        <form th:action="@{/urja-innovations/process_payment}" method="post"
+              style="max-width: 600px; margin:0 auto;"
+            th:object="${paymentEntry}">
+            <div class="m-3">
+                <div class="form-group row">
+                    <label class="col-form-label col-4">Enterprise Name</label>
+                    <div class="col-8">
+                        <select th:field="*{selectedEnterpriseId}" class="form-control" id="enterprise" name="enterprise">
+                            <option th:value="0">--SELECT--</option>
+                            <option th:each="enterprise : ${enterprises}"
+                                    th:value="${enterprise.id}"
+                                    th:utext="${enterprise.enterpriseName}"/>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-4">Bank</label>
+                    <div class="col-8">
+                        <select th:field="*{selectedPaymentSource}" class="form-control" id="payment_source" name="payment_source">
+                            <option th:value="0">--SELECT--</option>
+                            <option th:each="payment_source : ${paymentSources}"
+                                    th:value="${payment_source}"
+                                    th:utext="${payment_source.getPaymentSourceType()}"/>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-4">payment Date</label>
+                    <div class="col-8">
+                        <input class="form-control" type="date" th:field="*{payment.paymentDate}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-4">Amount</label>
+                    <div class="col-8">
+                        <input class="form-control" th:field="*{payment.amount}" required>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>

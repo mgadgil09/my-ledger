@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="UTF-8">
+        <title>Check Account Balance</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light py-0">
+            <a th:href="@{/landing-page}" class="navbar-brand"><small>Home</small></a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a th:href="@{/urja-innovations/account-balance}" class="nav-item nav-link active"><small>AccountBalance</small></a>
+                    <a th:href="@{/urja-innovations/submit-purchase}" class="nav-item nav-link"><small>PurchaseEntry</small></a>
+                    <a th:href="@{/urja-innovations/submit-payment}" class="nav-item nav-link"><small>Payment Entry</small></a>
+                </div>
+            </div>
+            <div class="navlist-right">
+                <span sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="navbar-brand"><small>Logout</small></a></span>
+            </div>
+        </nav>
+        <div class="form-group">
+            <div class="container text-center">
+                <p></p>
+                <p><b>Show Enterprise Account Balance</b></p>
+                <p></p>
+            </div>
+
+            <form th:action="@{/urja-innovations/account-balance}" id="account-balance" th:object="${accountBalance}" method="POST">
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <label class="col-md-10 col-form-label"><small>Select Enterprise:</small></label>
+                    </div>
+                    <div class="col-sm-3">
+                       <small><select th:field="*{selectedEnterpriseId}" class="col-md-10 text-center" id="enterprise" name="enterprise">
+                            <option th:value="0">--SELECT--</option>
+                            <option th:each="enterprise : ${enterprises}"
+                                    th:value="${enterprise.id}"
+                                    th:utext="${enterprise.enterpriseName}"/>
+                        </select></small>
+                    </div>
+                    <div class="col-sm-1">
+                        <button id="account-button" name="account-button" type="submit" class="btn btn-primary"><small>Submit</small></button>
+                    </div>
+                </div>
+
+
+
+            </form>
+            <hr>
+            <div class="container">
+                <div class="form-group row">
+                    <div class="col-sm-6" id="resultBlock" th:if="${show_balance} and supplier != ''">
+                        <p><small>Account Balance for  </small><b><span id="currentBalance" th:text="${supplier}"></span></b></p>
+                        <p th:if="${show_balance} and supplier != '' and ${balanceDue} &lt; 0"><small>
+                            <small>You overpaid <span id="supplierField1" th:text="${supplier}"></span></small></small></p>
+                        <p th:if="${show_balance} and supplier != '' and ${balanceDue} &gt; 0"><small>
+                        <small>You owe <span id="supplierField2" th:text="${supplier}"></span></small></small></p>
+                    </div>
+                    <div class="col-3" th:if="${show_balance}">
+                        <input  th:value="|&#8377; ${balanceDue}|" type="text">
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#account-button').click(function(){
+                $.ajax({
+                    type: 'POST',
+                    url: '/account-balance',
+                    success: function(result){
+                        $('#resultBlock').text(result)
+                    }
+                });
+            });
+        });
+    </script>
+    </body>
+</html>

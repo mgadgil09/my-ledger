@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MyLedger Home Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+</head>
+<body>
+    <form th:action="@{/}" method="post"
+      style="max-width: 600px; margin:0 auto;">
+        <div class="container text-center">
+            <div>
+                <p><h2>MyLedger</h2></p>
+                <p>Welcome to MyLedger. Your very own customized bookkeeper!</p>
+            </div>
+            <hr>
+            <div class="form-group row">
+                <div class="container text center">
+                    <h4><a th:href="@{/sign-up}">Register</a></h4>
+                    <h4><a th:href="@{/login}">Login</a></h4>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

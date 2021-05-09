@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Purchase Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a th:href="@{/landing-page}" class="navbar-brand">Home</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a th:href="@{/urja-innovations/account-balance}" class="nav-item nav-link">AccountBalance</a>
+                <a th:href="@{/urja-innovations/submit-purchase}" class="nav-item nav-link active">PurchaseEntry</a>
+                <a th:href="@{/urja-innovations/submit-payment}" class="nav-item nav-link">Payment Entry</a>
+            </div>
+        </div>
+        <div class="navlist-right">
+            <span sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="navbar-brand"><small>Logout</small></a></span>
+        </div>
+    </nav>
+    <div class="container text-center">
+        <div>
+            <p></p>
+            <h2>Make a Purchase Entry</h2>
+            <p></p>
+        </div>
+        <form th:action="@{/urja-innovations/process_purchase}" method="post"
+              style="max-width: 600px; margin:0 auto;"
+            th:object="${purchaseEntry}">
+            <div class="m-3">
+                <div class="form-group row">
+                    <label class="col-form-label col-4">Enterprise Name</label>
+                    <div class="col-8">
+                        <input class="form-control" th:field="*{enterprise.enterpriseName}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-4">Bill No.</label>
+                    <div class="col-8">
+                        <input class="form-control" th:field="*{purchase.billNo}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-4">Bill Date</label>
+                    <div class="col-8">
+                        <input class="form-control" type="date" th:field="*{purchase.billDate}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-4">Amount</label>
+                    <div class="col-8">
+                        <input class="form-control" th:field="*{purchase.amount}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-4">VAT</label>
+                    <div class="col-8">
+                        <input class="form-control" th:field="*{purchase.amountVat}" required>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>
