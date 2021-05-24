@@ -68,6 +68,24 @@
                 </div>
 
             </div>
+            <hr>
+            <div class="container" th:if="${show_balance} and supplier != '' and ${transactions != null}">
+                <table id="transaction_table" class="table table-bordered">
+                    <tr>
+                        <th>Enterprise</th>
+                        <th>Transaction Type</th>
+                        <th>Transaction Date</th>
+                        <th>Transaction Amount</th>
+                    </tr>
+                    <tr th:each="transaction : ${transactions}">
+                        <td th:text="${enterprise}"></td>
+                        <td th:text="${transaction.transactionType}"></td>
+                        <td th:text="${transaction.transactionDate}"></td>
+                        <td th:text="${transaction.transactionAmount}"></td>
+                    </tr>
+                </table>
+
+            </div>
 
 
         </div>

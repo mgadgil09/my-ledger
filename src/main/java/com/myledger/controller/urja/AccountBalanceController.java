@@ -1,9 +1,11 @@
 package com.myledger.controller.urja;
 
+import com.myledger.model.Transaction;
 import com.myledger.model.urja.AccountBalance;
 import com.myledger.model.urja.Enterprise;
 import com.myledger.service.urja.BalanceService;
 import com.myledger.service.urja.EnterpriseService;
+import com.myledger.service.urja.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ public class AccountBalanceController {
 
     @Autowired
     private EnterpriseService enterpriseService;
+
+    @Autowired
+    TransactionService transactionService;
 
     @GetMapping("/urja-innovations/account-balance")
     public String showAccountBalanceForm(Model model){
@@ -36,6 +41,9 @@ public class AccountBalanceController {
         if(selectedEnterpriseId != 0) {
             String selectedEnterpriseName = enterpriseService.getEnterpriseById((int) selectedEnterpriseId).getEnterpriseName();
             double balanceDue = balanceService.getBalance(selectedEnterpriseId).getAmountDue();
+            List<Transaction> transactions = transactionService.listTransactionByEnterpriseId((int) selectedEnterpriseId);
+            model.addAttribute("enterprise", selectedEnterpriseName);
+            model.addAttribute("transactions", transactions);
             model.addAttribute("supplier", selectedEnterpriseName);
             model.addAttribute("balanceDue", "" + -balanceDue);
             model.addAttribute("show_balance", true);
