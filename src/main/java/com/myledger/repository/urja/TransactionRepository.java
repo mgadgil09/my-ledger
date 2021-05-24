@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Integer>{
 
-    List<Transaction> findByEnterpriseId(int enterpriseId);
+    List<Transaction> findByEnterpriseId(long enterpriseId);
 }
