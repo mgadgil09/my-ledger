@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Integer>{
 
-    List<Transaction> findByEnterpriseId(long enterpriseId);
+    List<Transaction> findByEnterpriseIdOrderByTransactionDateAsc(long enterpriseId);
 }
