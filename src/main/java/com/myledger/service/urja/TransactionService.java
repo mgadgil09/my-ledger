@@ -20,7 +20,7 @@ public class TransactionService {
     }
 
     public List<Transaction> listTransactionByEnterpriseId(int enterpriseId){
-        return transactionRepository.findByEnterpriseId(enterpriseId);
+        return transactionRepository.findByEnterpriseIdOrderByTransactionDateAsc(enterpriseId);
     }
 
 }
