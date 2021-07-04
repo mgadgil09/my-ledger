@@ -26,6 +26,9 @@
         </nav>
         <div class="form-group">
             <div class="container text-center">
+                <div>
+                    <img th:src="@{/images/urja_logo.jpg}" th:width="100" th:height="100"/>
+                </div>
                 <p></p>
                 <p><b>Show Enterprise Account Balance</b></p>
                 <p></p>
@@ -58,9 +61,9 @@
                     <div class="col-sm-6" id="resultBlock" th:if="${show_balance} and supplier != ''">
                         <p><small>Account Balance for  </small><b><span id="currentBalance" th:text="${supplier}"></span></b></p>
                         <p th:if="${show_balance} and supplier != '' and ${balanceDue} &lt; 0"><small>
-                            <small>You overpaid <span id="supplierField1" th:text="${supplier}"></span></small></small></p>
+                            <b>You overpaid <span id="supplierField1" th:text="${supplier}"></span></b></small></p>
                         <p th:if="${show_balance} and supplier != '' and ${balanceDue} &gt; 0"><small>
-                        <small>You owe <span id="supplierField2" th:text="${supplier}"></span></small></small></p>
+                        <b>You owe <span id="supplierField2" th:text="${supplier}"></span></b></small></p>
                     </div>
                     <div class="col-3" th:if="${show_balance}">
                         <input  th:value="|&#8377; ${balanceDue}|" type="text">
@@ -68,8 +71,9 @@
                 </div>
 
             </div>
-            <hr>
+
             <div class="container" th:if="${show_balance} and supplier != '' and ${transactions != null}">
+                <hr>
                 <table id="transaction_table" class="table table-bordered">
                     <tr>
                         <th>Enterprise</th>
