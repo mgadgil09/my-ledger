@@ -7,8 +7,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-light bg-light py-0 ">
-        <a th:href="@{/landing-page}" class="navbar-brand py-0 active"><small>Home</small></a>
+    <nav class="navbar navbar-expand-md navbar-light bg-light py-0 ">
+        <a th:href="@{/landing-page}" class="navbar-brand py-0 active">
+            <small>Home</small></a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,6 +28,9 @@
     <form role="form" th:action="@{/urja-innovations/urja-home-page}" method="post"
           style="max-width: 600px; margin:0 auto;">
         <div class="container text-center">
+            <div>
+                <img th:src="@{/images/urja_logo.jpg}" th:width="160" th:height="150"/>
+            </div>
             <div>
                 <p><h4>Urja Innovations Bookkeeping</h4></p>
                 <p><small>Welcome to Urja Innovations Home Page</small></p>
